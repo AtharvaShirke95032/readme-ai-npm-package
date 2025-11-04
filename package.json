@@ -1,10 +1,10 @@
 {
-  "name": "readme-ai",
+  "name": "no-readme",
   "version": "1.0.0",
   "description": "AI-powered README generator that analyzes your project and creates comprehensive documentation",
   "main": "dist/index.js",
   "bin": {
-    "readme-ai": "dist/cli.js"
+    "no-readme": "dist/cli.js"
   },
   "scripts": {
     "build": "tsc",
