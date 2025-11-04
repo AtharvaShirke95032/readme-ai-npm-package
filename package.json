@@ -4,6 +4,7 @@
   "description": "AI-powered README generator that analyzes your project and creates comprehensive documentation",
   "main": "dist/index.js",
   "bin": {
+  
     "no-readme": "dist/cli.js"
   },
   "scripts": {
