@@ -16,13 +16,13 @@ AI-powered README generator that analyzes your project and creates comprehensive
 No installation needed! Use with `npx`:
 
 ```bash
-npx readme-ai
+npx @catmeow/readme-ai
 ```
 
 Or install globally:
 
 ```bash
-npm install -g readme-ai
+npm install -g @catmeow/readme-ai
 ```
 
 ## Usage
@@ -32,7 +32,7 @@ npm install -g readme-ai
 Generate a README for the current directory:
 
 ```bash
-npx readme-ai
+npx @catmeow/readme-ai
 ```
 
 ### Specify a Directory
@@ -40,7 +40,7 @@ npx readme-ai
 Generate a README for a specific project:
 
 ```bash
-npx readme-ai /path/to/your/project
+npx @catmeow/readme-ai /path/to/your/project
 ```
 
 ### API Key Configuration
@@ -51,13 +51,13 @@ You need a Google Gemini API key. Get one free at: https://makersuite.google.com
 
 ```bash
 export GEMINI_API_KEY="your-api-key-here"
-npx readme-ai
+npx @catmeow/readme-ai
 ```
 
 **Option 2: CLI Flag**
 
 ```bash
-npx readme-ai --api-key your-api-key-here
+npx @catmeow/readme-ai --api-key your-api-key-here
 ```
 
 ## What Gets Generated
