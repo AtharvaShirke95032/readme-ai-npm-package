@@ -25,7 +25,7 @@ interface ApiSuccessResponse {
 
 const program = new Command();
 
-const DEFAULT_SERVER_URL = "http://localhost:3001";
+const DEFAULT_SERVER_URL = "https://readme-ai-backend.onrender.com";
 
 program
   .name("readme-ai")
