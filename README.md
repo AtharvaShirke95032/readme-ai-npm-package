@@ -1,122 +1,125 @@
 # 🧠 @catmeow/readme-ai
 
-> Generate beautiful, professional **README.md** files for your project — powered by Google Gemini AI.
+AI-powered **README generator** that analyzes your project and creates professional documentation automatically — powered by **Google Gemini AI** and a hosted API (no setup required).
 
 ---
 
-## 🚀 Quick Start (No Install Needed)
+## ✨ Features
 
-Just run this inside your project folder 👇
+- 🚀 **One Command** — Run instantly with `npx`, no API key or setup required  
+- 🧩 **Automatic Project Analysis** — Detects languages, dependencies, and project type  
+- 🤖 **AI-Powered Generation** — Uses Gemini AI to craft structured, detailed READMEs  
+- ⚙️ **Smart Detection** — Works for Node.js, React, Python, and more  
+- 💡 **Hosted API** — Uses a free hosted backend with built-in rate limiting  
+- 🪶 **No Installation Needed** — Works instantly out of the box  
+
+---
+
+## ⚡️ Quick Start
+
+Generate a README instantly:
 
 ```bash
-npx @catmeow/readme-ai --api-key <YOUR_GOOGLE_API_KEY>
+npx @catmeow/readme-ai
 ```
 
-It analyzes your project, generates a README, and saves it automatically.
+That’s it!  
+Your project will be scanned and a professional **README.md** will be created automatically in your folder.
 
----
-
-## 💡 Why Use It?
-
-- 🪄 **Instant READMEs** — saves hours of writing  
-- 🤖 **AI-powered** by Google Gemini  
-- 🧠 **Understands your project** structure, code, and stack  
-- ✨ **Zero setup** — just one command  
-
----
-
-## 📦 Install (Optional)
-
-If you prefer installing globally:
+### 📁 Generate for a specific project directory
 
 ```bash
-npm install -g @catmeow/readme-ai
-# or
-pnpm add -g @catmeow/readme-ai
-```
-
-Then run:
-
-```bash
-readme-ai
-```
-
-Or specify a project path:
-
-```bash
-readme-ai /path/to/your/project
+npx @catmeow/readme-ai /path/to/your/project
 ```
 
 ---
 
-## ⚙️ Environment Setup
+## 🧱 What It Does
 
-You can set your API key once and forget it 👇
+`@catmeow/readme-ai` automatically:
+
+- Scans your project structure and detects frameworks, dependencies, and languages  
+- Analyzes your codebase to understand functionality and structure  
+- Generates a full, professional README.md using AI  
+- Writes it directly to your project root  
+
+---
+
+## 📊 Example Output
+
+```
+🚀 README-AI Generator
+
+Target directory: /Users/meow/my-app
+Server: https://readme-ai-backend.onrender.com
+
+🔍 Analyzing project...
+✓ Found 52 files
+✓ Detected project type: React + Node.js
+✓ Languages: TypeScript, JavaScript
+
+🤖 Generating README with AI...
+
+📝 Writing README.md...
+
+✅ README.md created successfully at: /Users/meow/my-app/README.md
+```
+
+---
+
+## 🧠 Behind the Scenes
+
+- Uses **Gemini AI** via a hosted backend:  
+  [`https://readme-ai-backend.onrender.com`](https://readme-ai-backend.onrender.com)  
+- API calls are rate-limited to **10 requests / 15 minutes per IP**  
+- No need to provide your own API key  
+
+---
+
+## 💻 Requirements
+
+- Node.js **v18+**
+- Internet connection (for API access)
+
+---
+
+## 🧰 Development (For Contributors)
+
+Build the project:
 
 ```bash
-export GOOGLE_API_KEY=<YOUR_GOOGLE_API_KEY>
-```
+npm run build
+or 
+pnpm run build
+``` 
 
-Or create a `.env` file in the root:
-
-```
-GOOGLE_API_KEY=<YOUR_GOOGLE_API_KEY>
-```
-
----
-
-## 🧠 Example Output
+Run the CLI locally:
 
 ```bash
-🧩 Analyzing project...
-🤖 Generating README using AI...
-✅ README.md created successfully!
+npm run dev
 ```
 
----
-
-## 🧰 Run as a Local Server (Optional)
-
-You can also start the generator as an API server.
+Start the backend server:
 
 ```bash
-node src/server.ts
-```
-
-Then call it:
-
-```bash
-curl -X POST http://localhost:3001/api/generate \
-  -H "Content-Type: application/json" \
-  -d '{"name": "my-project"}'
+pnpm run start:server
 ```
 
 ---
 
-## 🧩 Programmatic Usage
+## 🪪 License
 
-Use it directly in your scripts:
-
-```js
-import { ProjectAnalyzer } from '@catmeow/readme-ai/src/analyzer';
-
-const analyzer = new ProjectAnalyzer('./my-app');
-const projectInfo = await analyzer.analyze();
-console.log(projectInfo);
-```
+**MIT License** — free for personal and commercial use.
 
 ---
 
-## 🧱 Built With
+## 🤝 Contributing
 
-- ⚡ TypeScript  
-- 🌐 Node.js  
-- 🚀 Express  
-- 🧠 Google Gemini API  
-- 🎨 Chalk & Commander  
+Contributions, ideas, and pull requests are welcome!  
+If you’d like to improve the project or report an issue, open a PR or issue on **GitHub**.
 
 ---
 
-## 🐾 License
+## 🌐 Maintained by
 
-MIT © CatMeow
+**[@catmeow 🐾](https://npmjs.com/~catmeow)** — bringing simple dev tools to life.
