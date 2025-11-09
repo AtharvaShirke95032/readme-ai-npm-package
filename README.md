@@ -1,138 +1,165 @@
-# readme-ai 🚀
+```markdown
+# @catmeow/readme-ai 🚀
 
-AI-powered README generator that analyzes your project and creates comprehensive documentation automatically using Google's Gemini AI.
+A CLI tool and library to automatically generate README.md files for your projects using AI.
 
-## Features
+## Features ⚡
 
-- **Automatic Project Analysis** - Scans your codebase to understand structure, dependencies, and languages
-- **AI-Powered Generation** - Uses Google Gemini AI to create comprehensive, professional README files
-- **Smart Detection** - Automatically identifies project type (Node.js, Python, React, etc.)
-- **One Command** - Simple CLI tool that works with `npx`
-- **No Installation Required** - Run directly with npx
-- **Customizable** - Supports different project directories and API key configurations
+-   **Automated README Generation:** Automatically creates a comprehensive README file based on your project's structure and code.
+-   **AI-Powered:** Leverages the power of Google Gemini AI to understand your project and generate relevant content.
+-   **Customizable:** Easily configure the tool to fit your specific needs.
+-   **CLI and Library:** Use it as a command-line tool or integrate it directly into your JavaScript/TypeScript projects.
+-   **Language Detection:** Automatically detects the programming languages used in your project.
+-   **Dependency Extraction:** Identifies and lists project dependencies.
+-   **Project Structure Analysis:** Analyzes the project's file structure to provide a clear overview.
+-   **Supports TypeScript Projects:** Specifically designed and optimized for TypeScript projects.
+
+## Tech Stack 📦
+
+-   **TypeScript:** Primary language for development.
+-   **@google/generative-ai:** Google's Generative AI SDK for generating README content.
+-   **chalk:** For colorful console output.
+-   **commander:** For building the command-line interface.
+-   **cors:** For enabling Cross-Origin Resource Sharing (CORS) in the server.
+-   **express:** For creating a simple web server (optional).
+-   **express-rate-limit:** For rate-limiting API requests to prevent abuse.
+-   **fast-glob:** For efficient file system scanning.
+-   **fs-extra:** For enhanced file system operations.
 
 ## Installation
 
-No installation needed! Use with `npx`:
+1.  **Install via npm or yarn:**
 
-```bash
-npx @catmeow/readme-ai
-```
+    ```bash
+    npm install -g @catmeow/readme-ai
+    # or
+    yarn global add @catmeow/readme-ai
+    # or
+    pnpm add -g @catmeow/readme-ai
+    ```
 
-Or install globally:
+2.  **Install as a dev dependency:**
 
-```bash
-npm install -g @catmeow/readme-ai
-```
+    ```bash
+    npm install -D @catmeow/readme-ai
+    # or
+    yarn add -D @catmeow/readme-ai
+    # or
+    pnpm add -D @catmeow/readme-ai
+    ```
 
 ## Usage
 
-### Basic Usage
+### CLI
 
-Generate a README for the current directory:
+1.  **Run the CLI tool:**
 
-```bash
-npx @catmeow/readme-ai
-```
+    ```bash
+    readme-ai generate
+    ```
 
-### Specify a Directory
+    This command will analyze your project in the current directory and generate a `README.md` file.
 
-Generate a README for a specific project:
+2.  **Specify a target directory:**
 
-```bash
-npx @catmeow/readme-ai /path/to/your/project
-```
+    ```bash
+    readme-ai generate --path /path/to/your/project
+    ```
 
-### API Key Configuration
+3.  **Configure with API Key:**
 
-You need a Google Gemini API key. Get one free at: https://makersuite.google.com/app/apikey
+   You must set the `GEMINI_API_KEY` environment variable.
 
-**Option 1: Environment Variable (Recommended)**
+   ```bash
+   export GEMINI_API_KEY="YOUR_API_KEY"
+   ```
 
-```bash
-export GEMINI_API_KEY="your-api-key-here"
-npx @catmeow/readme-ai
-```
+   Or you can pass it as a command-line argument:
 
-**Option 2: CLI Flag**
+   ```bash
+   readme-ai generate --api-key YOUR_API_KEY
+   ```
 
-```bash
-npx @catmeow/readme-ai --api-key your-api-key-here
-```
+4.  **Run a local server (optional):**
 
-## What Gets Generated
+    You can run a local server to generate README files via API calls.
 
-The tool creates a comprehensive README.md with:
+    ```bash
+    readme-ai server
+    ```
 
-- Project title and description
-- Key features list
-- Technology stack overview
-- Installation instructions
-- Usage examples
-- Project structure overview
-- Configuration details
-- Contributing guidelines
-- License information
+    The server will run on `http://localhost:3001` by default.
 
-## How It Works
+### Library
 
-1. **Scans** your project files and structure
-2. **Analyzes** dependencies, languages, and code patterns
-3. **Generates** professional documentation using AI
-4. **Creates** README.md in your project root
+1.  **Import the `ProjectAnalyzer` class:**
 
-## Requirements
+    ```typescript
+    import { ProjectAnalyzer } from '@catmeow/readme-ai';
 
-- Node.js 16 or higher
-- Google Gemini API key
+    async function generateReadme() {
+      const analyzer = new ProjectAnalyzer('/path/to/your/project');
+      const projectInfo = await analyzer.analyze();
+      // Use projectInfo to generate your README content
+      console.log(projectInfo);
+    }
 
-## Tech Stack
+    generateReadme();
+    ```
 
-- TypeScript
-- Google Gemini AI (gemini-2.0-flash)
-- Commander.js (CLI framework)
-- fast-glob (file scanning)
-- Chalk (colored output)
-
-## Example Output
-
-When you run `readme-ai`, you'll see:
+## Project Structure
 
 ```
-🚀 README-AI Generator
-
-Target directory: /path/to/project
-
-🔍 Analyzing project...
-✓ Found 45 files
-✓ Detected project type: React
-✓ Languages: TypeScript, JavaScript
-
-🤖 Generating README with AI...
-
-📝 Writing README.md...
-
-✅ README.md created successfully!
+@catmeow/readme-ai/
+├── README.md            # This file
+├── package-lock.json    # npm lockfile
+├── package.json         # Project metadata and dependencies
+├── pnpm-lock.yaml       # pnpm lockfile
+├── src/                 # Source code directory
+│   ├── analyzer.ts      # Analyzes the project structure and extracts information
+│   ├── cli.ts           # Command-line interface logic
+│   ├── gemini-service.ts # Interacts with the Google Gemini AI API
+│   ├── generator.ts     # Generates the README content (currently a placeholder)
+│   ├── index.ts         # Main entry point for the library
+│   ├── server.ts        # Simple Express server for API access (optional)
+│   └── types.ts         # Defines TypeScript interfaces and types
+├── tsconfig.json        # TypeScript configuration file
 ```
 
-## Development
+## Configuration
 
-Build the project:
-
-```bash
-npm run build
-```
-
-Run locally:
-
-```bash
-npm run dev
-```
-
-## License
-
-MIT
+-   **`GEMINI_API_KEY`**:  Your Google Gemini API key.  Required for using the AI-powered features.  You can obtain an API key from the Google AI Studio.
 
 ## Contributing
 
-Contributions welcome! Feel free to open issues or submit pull requests.
+Contributions are welcome!  Please follow these guidelines:
+
+1.  Fork the repository.
+2.  Create a new branch for your feature or bug fix.
+3.  Write tests for your code.
+4.  Submit a pull request.
+
+## License
+
+MIT License
+
+Copyright (c) 2024 catmeow
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
