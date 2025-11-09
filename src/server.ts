@@ -2,7 +2,9 @@ import express, { Express, Request, Response } from "express";
 import cors from "cors";
 import rateLimit from "express-rate-limit";
 import { GeminiService } from "./gemini-service";
-
+import dotenv from "dotenv";
+import path from "path";
+dotenv.config({ path: path.resolve(__dirname, "../.env") });
 const app: Express = express();
 const PORT = process.env.PORT || 3001;
 
