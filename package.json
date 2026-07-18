@@ -7,7 +7,9 @@
     "readme-ai": "dist/cli.js"
   },
   "scripts": {
-    "build": "tsc",
+    
+     "clean": "rm -rf dist",
+    "build": "npm run clean && tsc",
     "start": "node dist/cli.js",
     "start:server": "node dist/server.js",
     "dev": "tsc && node dist/cli.js",

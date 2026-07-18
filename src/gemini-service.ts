@@ -7,7 +7,7 @@ export class GeminiService {
 
   constructor(apiKey: string) {
     this.genAI = new GoogleGenerativeAI(apiKey);
-    this.model = this.genAI.getGenerativeModel({ model: 'gemini-2.5-flash-lite' });
+    this.model = this.genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
   }
 
   async generateReadme(projectInfo: ProjectInfo, sampleCode: string): Promise<string> {
@@ -17,9 +17,14 @@ export class GeminiService {
       const result = await this.model.generateContent(prompt);
       const response = await result.response;
       return response.text();
-    } catch (error) {
-      throw new Error(`Failed to generate README: ${error}`);
-    }
+    } catch (error: any) {
+  console.error("Gemini Error:", error);
+  console.error("Message:", error?.message);
+  console.error("Status:", error?.status);
+  console.error("Stack:", error?.stack);
+
+  throw error;
+}
   }
 
   private buildPrompt(projectInfo: ProjectInfo, sampleCode: string): string {
