@@ -1,48 +1,73 @@
 {
   "name": "@catmeow/readme-ai",
-  "version": "1.0.4",
-  "description": "AI-powered README generator that analyzes your project and creates comprehensive documentation",
-  "main": "dist/index.js",
+  "version": "2.0.0",
+  "description": "One command to generate an accurate, polished README.md from your codebase. Works with Gemini, Claude, OpenAI, Grok or a local Ollama model.",
   "bin": {
     "readme-ai": "dist/cli.js"
   },
+  "main": "./dist/index.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    
-     "clean": "rm -rf dist",
-    "build": "npm run clean && tsc",
-    "start": "node dist/cli.js",
-    "start:server": "node dist/server.js",
-    "dev": "tsc && node dist/cli.js",
-    "dev:server": "tsc && node dist/server.js"
+    "build": "tsup && tsc -p tsconfig.build.json && tsup --config tsup.server.config.ts",
+    "build:server": "tsup --config tsup.server.config.ts",
+    "dev": "tsx src/cli/index.ts",
+    "dev:server": "tsx watch server/index.ts",
+    "start:server": "node build/server.js",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prepublishOnly": "npm run typecheck && npm test && npm run build",
+    "build:cli": "tsup && tsc -p tsconfig.build.json"
   },
   "keywords": [
     "readme",
-    "ai",
+    "readme-generator",
     "documentation",
-    "generator",
-    "cli"
+    "ai",
+    "cli",
+    "gemini",
+    "claude",
+    "openai",
+    "grok",
+    "ollama"
   ],
-  "author": "",
+  "author": "AtharvaShirke95032",
   "license": "MIT",
-  "dependencies": {
-    "@google/generative-ai": "^0.21.0",
-    "chalk": "^4.1.2",
-    "commander": "^12.0.0",
-    "cors": "^2.8.5",
-    "dotenv": "^17.2.3",
-    "express": "^4.18.2",
-    "express-rate-limit": "^7.1.5",
-    "fast-glob": "^3.3.2",
-    "fs-extra": "^11.2.0"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AtharvaShirke95032/readme-ai-npm-package.git"
   },
-  "devDependencies": {
-    "@types/cors": "^2.8.17",
-    "@types/express": "^4.17.21",
-    "@types/fs-extra": "^11.0.4",
-    "@types/node": "^20.11.0",
-    "typescript": "^5.3.3"
+  "homepage": "https://github.com/AtharvaShirke95032/readme-ai-npm-package#readme",
+  "bugs": {
+    "url": "https://github.com/AtharvaShirke95032/readme-ai-npm-package/issues"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@hono/node-server": "^2.1.5",
+    "@types/node": "^26.6.5",
+    "commander": "^14.0.3",
+    "diff": "^9.0.0",
+    "fast-glob": "^3.3.3",
+    "hono": "^4.13.13",
+    "ignore": "^7.0.12",
+    "picocolors": "^1.1.1",
+    "smol-toml": "^1.9.1",
+    "tsup": "^9.0.0",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.5",
+    "zod": "^4.6.7"
   }
 }

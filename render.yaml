@@ -1,0 +1,23 @@
+# Render Blueprint for the hosted readme-ai API.
+# Render dashboard → New → Blueprint → pick this repo, then fill in the secret keys.
+services:
+  - type: web
+    name: readme-ai-backend
+    runtime: node
+    plan: free
+    branch: main
+    buildCommand: npm ci --include=dev && npm run build:server
+    startCommand: node build/server.js
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: RATE_LIMIT
+        value: "10"
+      - key: DAILY_LIMIT
+        value: "1000"
