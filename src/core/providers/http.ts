@@ -46,14 +46,36 @@ export async function errorFromResponse(res: Response, provider: string, hint: {
   return new ProviderError(message, provider, res.status, retry);
 }
 
-/** fetch() with a friendly error when the network itself fails. */
+const RETRYABLE = new Set([500, 502, 503, 504, 529]);
+export const retryDelays = { ms: [1_500, 4_000] };
+
+const wait = (ms: number, signal?: AbortSignal | null) =>
+  new Promise<void>((resolve, reject) => {
+    const t = setTimeout(resolve, ms);
+    signal?.addEventListener('abort', () => {
+      clearTimeout(t);
+      reject(signal.reason);
+    }, { once: true });
+  });
+
+/**
+ * fetch() with a friendly error when the network fails, and a couple of retries when
+ * the provider is briefly overloaded (5xx). Retries happen before any text is streamed.
+ */
 export async function request(url: string, init: RequestInit, provider: string): Promise<Response> {
-  try {
-    return await fetch(url, init);
-  } catch (err) {
-    if ((err as Error).name === 'AbortError' || init.signal?.aborted) throw err;
-    const cause = (err as { cause?: { code?: string } }).cause?.code;
-    throw new ProviderError(`Could not reach ${provider} (${cause ?? (err as Error).message}). Check your internet connection.`, provider);
+  for (let attempt = 0; ; attempt++) {
+    let res: Response;
+    try {
+      res = await fetch(url, init);
+    } catch (err) {
+      if ((err as Error).name === 'AbortError' || init.signal?.aborted) throw err;
+      const cause = (err as { cause?: { code?: string } }).cause?.code;
+      throw new ProviderError(`Could not reach ${provider} (${cause ?? (err as Error).message}). Check your internet connection.`, provider);
+    }
+    const delay = retryDelays.ms[attempt];
+    if (!RETRYABLE.has(res.status) || delay === undefined) return res;
+    await res.body?.cancel().catch(() => undefined);
+    await wait(delay, init.signal);
   }
 }
 

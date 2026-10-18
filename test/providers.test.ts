@@ -1,5 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { createGenerator, normalizeOllamaHost, ProviderError, SetupError } from '../src/core/providers';
+import { retryDelays } from '../src/core/providers/http';
 import type { GenerateJob } from '../src/core/types';
 import { baseFacts, streamResponse } from './helpers';
 
@@ -98,6 +99,18 @@ describe('errors', () => {
     const err = await run(createGenerator({ provider: 'grok', quality: 'fast', env: { XAI_API_KEY: 'k' } })).catch((e) => e);
     expect(err).toBeInstanceOf(ProviderError);
     expect(err.retryAfterSeconds).toBe(20);
+  });
+
+  it('retries when the provider is briefly overloaded', async () => {
+    retryDelays.ms = [1, 1];
+    let n = 0;
+    const calls = stubFetch(() => (++n < 3 ? new Response('{"error":{"message":"overloaded"}}', { status: 503 }) : streamResponse(sse([{ choices: [{ delta: { content: 'ok' } }] }], 'data: [DONE]\n\n'))));
+    expect(await run(createGenerator({ provider: 'openai', quality: 'fast', env: { OPENAI_API_KEY: 'k' } }))).toBe('ok');
+    expect(calls).toHaveLength(3);
+
+    n = -10;
+    stubFetch(() => new Response('{}', { status: 503 }));
+    await expect(run(createGenerator({ provider: 'openai', quality: 'fast', env: { OPENAI_API_KEY: 'k' } }))).rejects.toThrow(/having problems/);
   });
 
   it('tells you to start Ollama or pull the model', async () => {
