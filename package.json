@@ -15,14 +15,16 @@
     "./package.json": "./package.json"
   },
   "files": [
-    "dist"
+    "dist/cli.js",
+    "dist/index.js",
+    "dist/types"
   ],
   "scripts": {
     "build": "tsup && tsc -p tsconfig.build.json && tsup --config tsup.server.config.ts",
     "build:server": "tsup --config tsup.server.config.ts",
     "dev": "tsx src/cli/index.ts",
     "dev:server": "tsx watch server/index.ts",
-    "start:server": "node build/server.js",
+    "start:server": "node dist/server.js",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",

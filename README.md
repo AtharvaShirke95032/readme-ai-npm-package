@@ -213,7 +213,7 @@ npx @catmeow/readme-ai --server http://localhost:3001
 | `DAILY_LIMIT` | Total generations per day, to cap spending | `1000` |
 | `PORT`, `TRUST_PROXY` | Port; read client IP from `X-Forwarded-For` | `3001`, `true` |
 
-Deploy to Render with the included [`render.yaml`](render.yaml) blueprint, or anywhere that runs Node 20+: build with `npm run build:server`, start with `node build/server.js`. `GET /health` reports status and the active models.
+Deploy to Render with the included [`render.yaml`](render.yaml) blueprint, or anywhere that runs Node 20+: build with `npm run build:server`, start with `node dist/server.js`. `GET /health` reports status and the active models.
 
 ## Development
 

@@ -7,7 +7,7 @@ services:
     plan: free
     branch: main
     buildCommand: npm ci --include=dev && npm run build:server
-    startCommand: node build/server.js
+    startCommand: node dist/server.js
     healthCheckPath: /health
     autoDeploy: true
     envVars:
